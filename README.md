@@ -78,3 +78,48 @@ protected $fillable = ['user_id', 'title', 'description'];
 // app/Rating.php
 protected $fillable = ['book_id', 'user_id', 'rating'];
 ```
+
+## Adding user authentication
+
+```sh
+$ composer require tymon/jwt-auth "1.0.*"
+```
+
+Run the command below to publish the package’s config file:
+
+```sh
+// 1, create a config/jwt.php file
+$ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+ // 1, generate a secret key
+ // 2, update the .env file with something like JWT_SECRET=some_random_key
+$ php artisan jwt:secret
+```
+
+Before we can start to use the jwt-auth package, we need to update our **User model** to implement the Tymon\JWTAuth\Contracts\JWTSubject contract.
+
+Update config/auth.php to configure the auth guard to make use of the jwt guard.
+
+Create a new AuthController:
+
+```sh
+php artisan make:controller AuthController
+```
+
+Next, let’s add the register and login routes.
+
+```sh
+// routes/api.php
+
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+```
+
+API routes:
+
+```sh
+// routes/api.php
+
+Route::apiResource('books', 'BookController');
+Route::post('books/{book}/ratings', 'RatingController@store');
+```
