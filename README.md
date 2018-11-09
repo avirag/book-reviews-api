@@ -103,7 +103,7 @@ Update config/auth.php to configure the auth guard to make use of the jwt guard.
 Create a new AuthController:
 
 ```sh
-php artisan make:controller AuthController
+$ php artisan make:controller AuthController
 ```
 
 Next, let’s add the register and login routes.
@@ -122,4 +122,18 @@ API routes:
 
 Route::apiResource('books', 'BookController');
 Route::post('books/{book}/ratings', 'RatingController@store');
+```
+
+## Creating the book and the rating resource
+
+```sh
+$ php artisan make:resource BookResource
+$ php artisan make:resource RatingResource
+```
+
+## Creating the book and the rating controller
+
+```sh
+$ php artisan make:controller BookController --api
+$ php artisan make:controller RatingController
 ```
