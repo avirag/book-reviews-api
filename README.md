@@ -137,3 +137,16 @@ $ php artisan make:resource RatingResource
 $ php artisan make:controller BookController --api
 $ php artisan make:controller RatingController
 ```
+
+## Securing the API endpoints
+
+```sh
+public function __construct()
+{
+  $this->middleware('auth:api')->except(['index', 'show']);
+}
+```
+
+## Handling resource not found
+
+By default when a specified model is not found, Laravel will throw a ModelNotFoundException and renders a 404 page. Since we are building an API, we want to handle the exception and throw an API friendly error message.

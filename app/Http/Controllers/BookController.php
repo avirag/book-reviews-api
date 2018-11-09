@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     /**
+     * BookController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

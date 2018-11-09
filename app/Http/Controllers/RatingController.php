@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class RatingController extends Controller
 {
+    /**
+     * RatingController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function store(Request $request, Book $book)
     {
         $rating = Rating::firstOrCreate(
